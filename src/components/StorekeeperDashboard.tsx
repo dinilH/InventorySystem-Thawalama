@@ -137,11 +137,11 @@ export default function StorekeeperDashboard({ activeTab }: StorekeeperDashboard
   if (activeTab === "inventory") {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="dashboard-tab-header">
           <h2 style={{ fontSize: "18px", fontWeight: 600 }}>Stock Management</h2>
-          <div style={{ display: "flex", gap: "12px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "240px", position: "relative" }}>
-              <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))" }} />
+          <div className="filters-container">
+            <div className="search-container">
+              <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))", zIndex: 10 }} />
               <input
                 type="text"
                 className="input-field"
@@ -438,10 +438,10 @@ export default function StorekeeperDashboard({ activeTab }: StorekeeperDashboard
     const allReqs = requests;
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="dashboard-tab-header">
           <h2 style={{ fontSize: "18px", fontWeight: 600 }}>Request Archive</h2>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "240px", position: "relative" }}>
-            <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))" }} />
+          <div className="search-container">
+            <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))", zIndex: 10 }} />
             <input
               type="text"
               className="input-field"

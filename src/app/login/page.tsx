@@ -9,11 +9,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
     // If user already logged in, redirect straight to dashboard
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("user") || sessionStorage.getItem("user")) {
       router.replace("/dashboard");
+      return;
+    }
+
+    // Load pre-filled email if remembered
+    const savedEmail = localStorage.getItem("rememberedEmail");
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberMe(true);
     }
   }, [router]);
 
@@ -42,8 +51,14 @@ export default function LoginPage() {
         throw new Error(data.error || "Login failed");
       }
 
-      // Store in localStorage
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // Store in localStorage or sessionStorage depending on rememberMe
+      if (rememberMe) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("rememberedEmail", email);
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.removeItem("rememberedEmail");
+      }
       
       // Redirect
       router.replace("/dashboard");
@@ -132,6 +147,24 @@ export default function LoginPage() {
               disabled={loading}
               required
             />
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBlock: "4px" }}>
+            <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "hsl(var(--text-secondary))", cursor: "pointer" }}>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                disabled={loading}
+                style={{
+                  width: "16px",
+                  height: "16px",
+                  accentColor: "hsl(var(--accent-blue))",
+                  cursor: "pointer"
+                }}
+              />
+              Remember Me
+            </label>
           </div>
 
           <button

@@ -134,7 +134,7 @@ export default function AccountantDashboard({ activeTab }: AccountantDashboardPr
                   </div>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
+                <div className="content-card-actions" style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
                   <button
                     className="btn btn-danger hover-scale"
                     onClick={() => setConfirmModal({ id: req.id, action: "Rejected" })}
@@ -189,11 +189,11 @@ export default function AccountantDashboard({ activeTab }: AccountantDashboardPr
   if (activeTab === "all-requests") {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="dashboard-tab-header">
           <h2 style={{ fontSize: "18px", fontWeight: 600 }}>All Material Requests</h2>
-          <div style={{ display: "flex", gap: "12px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "240px", position: "relative" }}>
-              <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))" }} />
+          <div className="filters-container">
+            <div className="search-container">
+              <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))", zIndex: 10 }} />
               <input
                 type="text"
                 className="input-field"
@@ -282,10 +282,10 @@ export default function AccountantDashboard({ activeTab }: AccountantDashboardPr
   if (activeTab === "inventory") {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="dashboard-tab-header">
           <h2 style={{ fontSize: "18px", fontWeight: 600 }}>Current Stock Levels</h2>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "280px", position: "relative" }}>
-            <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))" }} />
+          <div className="search-container">
+            <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))", zIndex: 10 }} />
             <input
               type="text"
               className="input-field"

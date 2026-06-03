@@ -6,12 +6,13 @@ import { ThemeToggle } from "../../components/ThemeToggle";
 import DepartmentDashboard from "../../components/DepartmentDashboard";
 import AccountantDashboard from "../../components/AccountantDashboard";
 import StorekeeperDashboard from "../../components/StorekeeperDashboard";
-import { LogOut, ClipboardList, History, Package, BarChart3, PackageOpen, ShoppingCart, User, Bell } from "lucide-react";
+import { LogOut, ClipboardList, History, Package, BarChart3, PackageOpen, ShoppingCart, User, Bell, Menu } from "lucide-react";
 
 export default function DashboardPage() {
   const { currentUser, loading, logout, requests } = useData();
   const [activeTab, setActiveTab] = useState("");
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Set default active tab based on user role when loaded
   useEffect(() => {
@@ -89,8 +90,16 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-container">
+      {/* Sidebar mobile overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="sidebar-backdrop" 
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar Nav */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
           <h1 className="sidebar-title">Inventory Portal</h1>
           <span className="sidebar-subtitle">Thawalama DS</span>
@@ -134,7 +143,10 @@ export default function DashboardPage() {
             <div
               key={item.id}
               className={`nav-item ${activeTab === item.id ? "active" : ""}`}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                setActiveTab(item.id);
+                setIsSidebarOpen(false);
+              }}
             >
               {item.icon}
               {item.label}
@@ -152,7 +164,16 @@ export default function DashboardPage() {
       {/* Main Panel Content Area */}
       <main className="main-content">
         <header className="top-bar">
-          <h2 className="top-bar-title">{activeNavItem ? activeNavItem.label : "Dashboard"}</h2>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <button
+              className="sidebar-toggle-btn"
+              onClick={() => setIsSidebarOpen(true)}
+              aria-label="Open Navigation"
+            >
+              <Menu size={20} />
+            </button>
+            <h2 className="top-bar-title">{activeNavItem ? activeNavItem.label : "Dashboard"}</h2>
+          </div>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "hsl(var(--text-muted))" }}>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "hsl(var(--color-success))", display: "inline-block" }} />

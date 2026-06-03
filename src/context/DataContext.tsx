@@ -71,9 +71,9 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [requests, setRequests] = useState<MaterialRequest[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // ── Load session from localStorage on startup ─────────────────────────────
+  // ── Load session from localStorage/sessionStorage on startup ──────────────
   useEffect(() => {
-    const cachedUser = localStorage.getItem("user");
+    const cachedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
     if (cachedUser) {
       setCurrentUser(JSON.parse(cachedUser));
     } else {
@@ -139,6 +139,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   // ── Auth ──────────────────────────────────────────────────────────────────
   const logout = () => {
     localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     setCurrentUser(null);
     setInventory([]);
     setRequests([]);

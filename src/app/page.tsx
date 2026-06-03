@@ -7,7 +7,7 @@ export default function RootPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const cachedUser = localStorage.getItem("user");
+    const cachedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
     if (cachedUser) {
       router.replace("/dashboard");
     } else {

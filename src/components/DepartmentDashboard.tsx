@@ -125,13 +125,13 @@ export default function DepartmentDashboard({ activeTab }: DepartmentDashboardPr
   // -------------------------------------------------------------
   if (activeTab === "request") {
     return (
-      <div style={{ display: "flex", gap: "32px", height: "calc(100vh - 150px)" }}>
+      <div className="catalog-basket-container">
         {/* Catalog Side */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "20px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="catalog-side">
+          <div className="dashboard-tab-header">
             <h2 style={{ fontSize: "18px", fontWeight: 600 }}>Material Catalog</h2>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "300px", position: "relative" }}>
-              <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))" }} />
+            <div className="search-container">
+              <Search size={16} style={{ position: "absolute", left: "12px", color: "hsl(var(--text-muted))", zIndex: 10 }} />
               <input
                 type="text"
                 className="input-field"
@@ -195,7 +195,7 @@ export default function DepartmentDashboard({ activeTab }: DepartmentDashboardPr
         </div>
 
         {/* Request Basket Side */}
-        <div className="glass-panel" style={{ width: "380px", padding: "24px", display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div className="glass-panel basket-side">
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <ShoppingCart size={20} style={{ color: "hsl(var(--accent-blue))" }} />
             <h2 style={{ fontSize: "18px", fontWeight: 600 }}>Request Basket</h2>
